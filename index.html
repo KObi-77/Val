@@ -309,9 +309,8 @@
   });
 
   function fullScreenConfetti() {
-    /*const end = Date.now() + 1800;
-    (function frame() {*/
-     setInterval(() => {
+    const end = Date.now() + 1800;
+    function frame() {
       confettiInstance({
         particleCount: 10,
         spread: 120,
@@ -320,12 +319,9 @@
         colors: ["#b48cff", "#ff7abf", "#ffffff"]
       });
        
-         /*if (Date.now() < end)  requestAnimationFrame(frame);  
+         if (Date.now() < end)  requestAnimationFrame(frame);  
     })(); 
-  }*/
-       
-      }, 120); // every 120 ms
-}
+  }
 
   
        /* requestAnimationFrame(frame); infinite*
