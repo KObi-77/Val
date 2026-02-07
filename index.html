@@ -276,17 +276,20 @@
   });
 
   function fullScreenConfetti() {
-    const end = Date.now() + 10000;
+    const end = Date.now() + 1800;
     (function frame() {
       confettiInstance({
-        particleCount: 14,
+        particleCount: 30,
         spread: 120,
         startVelocity: 50,
         origin: { x: Math.random(), y: Math.random() * 0.3 },
         colors: ["#b48cff", "#ff7abf", "#ffffff"]
       });
-      if (Date.now() < end) requestAnimationFrame(frame);
-    })();
+         /*if (Date.now() < end)  requestAnimationFrame(frame);  })();  }*/
+      
+        requestAnimationFrame(frame);
+    }
+    frame();
   }
 
   let yesScale = 1;
