@@ -227,7 +227,7 @@
   <div class="subtitle">Will you be my Valentine?</div>
 
   <section class="button-zone" id="zone">
-    <button id="">Yes 💖</button>
+    <button id="yesBtn">Yes 💖</button>
     <button id="noBtn">No 🙈</button>
   </section>
 
@@ -335,7 +335,8 @@
     result.style.display = "block";
 
     music.volume = 0.6;
-    music.play().catch(() => {});
+    music.load();
+    music.play().catch(err => console.log("Audio error:", err));
 
     resizeConfettiCanvas();
     fullScreenConfetti();
@@ -350,18 +351,7 @@
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 2500);
   });
-  yesBtn.addEventListener("click", () => {
-  zone.style.display = "none";
-  hint.style.display = "none";
-  result.style.display = "block";
-
-  music.volume = 0.6;
-  music.load();
-  music.play().catch(err => console.log("Audio error:", err));
-
-  resizeConfettiCanvas();
-  fullScreenConfetti();
-});
+  
 
 </script>
 
