@@ -276,7 +276,7 @@
 
   function fullScreenConfetti() {
     const end = Date.now() + 1800;
-    function frame() {
+    (function frame() {
       confettiInstance({
         particleCount: 10,
         spread: 120,
