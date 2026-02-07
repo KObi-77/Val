@@ -309,23 +309,29 @@
   });
 
   function fullScreenConfetti() {
-    const end = Date.now() + 1800;
-    (function frame() {
+    /*const end = Date.now() + 1800;
+    (function frame() {*/
+     setInterval(() => {
       confettiInstance({
-        particleCount: 300,
+        particleCount: 10,
         spread: 120,
-        startVelocity: 60,
+        startVelocity: 40,
         origin: { x: Math.random(), y: Math.random() * 0.3 },
         colors: ["#b48cff", "#ff7abf", "#ffffff"]
       });
+       
          /*if (Date.now() < end)  requestAnimationFrame(frame);  
     })(); 
   }*/
-      
-        requestAnimationFrame(frame);
+       
+      }, 120); // every 120 ms
+}
+
+  
+       /* requestAnimationFrame(frame); infinite*
     }
     frame();
-  }
+  }*/
 
   let yesScale = 1;
   function growYes() {
