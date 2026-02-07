@@ -285,12 +285,14 @@
         origin: { x: Math.random(), y: Math.random() * 0.3 },
         colors: ["#b48cff", "#ff7abf", "#ffffff"]
       });
-         /*if (Date.now() < end)  requestAnimationFrame(frame);  })();  }*/
+         if (Date.now() < end)  requestAnimationFrame(frame);  
+    })(); 
+  }
       
-        requestAnimationFrame(frame);
+        /*requestAnimationFrame(frame);
     }
     frame();
-  }
+  }*/
 
   let yesScale = 1;
   function growYes() {
