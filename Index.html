@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Luchy, will you be my Valentine? 💜</title>
+
+  <!-- Confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --bg1: #e6d9ff;
+      --bg2: #f4efff;
+      --card: #ffffffdd;
+
+      --lilac: #b48cff;
+      --lilac-dark: #9a6bff;
+      --pink: #ff7abf;
+      --text: #3a235f;
+    }
+
+    * { box-sizing: border-box; }
+
+/* FLOATING HEART BUTTON */
+#heartBtn {
+  position: fixed;
+  bottom: 24px;
+  right: 22px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  background: radial-gradient(circle, #ff7abf, #b48cff);
+  box-shadow: 0 14px 32px rgba(180, 140, 255, 0.5);
+  color: white;
+  z-index: 999;
+  animation: pulse 1.6s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* FLOATING HEARTS */
+.heart {
+  position: fixed;
+  bottom: 90px;
+  right: 40px;
+  font-size: 22px;
+  animation: floatUp 2.5s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-160px) scale(1.6);
+    opacity: 0;
+  }
+}
+
+    body {
+      margin: 0;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at top, var(--bg2), var(--bg1));
+      font-family: "Poppins", system-ui, sans-serif;
+      overflow: hidden;
+      padding: 16px;
+      color: var(--text);
+    }
+
+    /* CONFETTI */
+    #confettiCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .card {
+      width: min(740px, 94vw);
+      padding: 30px 24px 36px;
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      text-align: center;
+      box-shadow:
+        0 20px 60px rgba(120, 80, 200, 0.25),
+        inset 0 0 0 1px rgba(255,255,255,0.6);
+      position: relative;
+    }
+
+    .card::after {
+      content: "💜 💖 💜";
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 22px;
+    }
+
+    .art {
+      width: min(260px, 80vw);
+      margin: 0 auto 10px;
+      display: block;
+      filter: drop-shadow(0 12px 16px rgba(120, 80, 200, 0.3));
+    }
+
+    h1 {
+      font-size: clamp(28px, 4.5vw, 46px);
+      margin: 14px 0 8px;
+      font-weight: 800;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      opacity: 0.85;
+      margin-bottom: 22px;
+    }
+
+    .button-zone {
+      position: relative;
+      width: min(520px, 92%);
+      height: 160px;
+      margin: 0 auto;
+      touch-action: none;
+    }
+
+    button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 16px 28px;
+      font-size: 18px;
+      font-weight: 800;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 12px 28px rgba(120, 80, 200, 0.35);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    #yesBtn {
+      left: 18%;
+      background: linear-gradient(135deg, var(--pink), var(--lilac));
+      color: #fff;
+    }
+
+    #yesBtn:hover {
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 0 16px 36px rgba(255, 122, 191, 0.45);
+    }
+
+    #noBtn {
+      left: 62%;
+      background: #ede9fe;
+      color: #5b3b91;
+    }
+
+    .hint {
+      margin-top: 12px;
+      font-size: 14px;
+      opacity: .7;
+    }
+
+    .result {
+      display: none;
+      margin-top: 20px;
+      animation: pop .4s ease;
+    }
+
+    .result h2 {
+      font-size: clamp(32px, 5vw, 50px);
+      margin-bottom: 8px;
+      color: var(--lilac-dark);
+    }
+
+    .result p {
+      font-size: 18px;
+      margin-bottom: 14px;
+    }
+
+    .fireworks {
+      width: min(380px, 90vw);
+      margin: 0 auto;
+      display: block;
+      border-radius: 18px;
+    }
+
+    @keyframes pop {
+      from { transform: scale(.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- BACKGROUND MUSIC -->
+<audio id="bgMusic" preload="auto">
+  <!-- Replace this with a DIRECT mp3 link -->
+  <source src="YOUR_DIRECT_MP3_LINK_HERE.mp3" type="audio/mpeg">
+</audio>
+
+<!-- FLOATING HEART BUTTON -->
+<button id="heartBtn">💜</button>
+
+  <canvas id="confettiCanvas"></canvas>
+
+  <main class="card">
+    <!-- CUTE ART -->
+    <svg class="art" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="fur" x1="0" x2="1">
+          <stop offset="0" stop-color="#e2ccff"/>
+          <stop offset="1" stop-color="#c9a9ff"/>
+        </linearGradient>
+        <linearGradient id="heart" x1="0" x2="1">
+          <stop offset="0" stop-color="#ff7abf"/>
+          <stop offset="1" stop-color="#b48cff"/>
+        </linearGradient>
+      </defs>
+
+      <path d="M250 50 C250 33 270 25 282 38
+               C294 25 314 33 314 50
+               C314 78 282 92 282 106
+               C282 92 250 78 250 50Z"
+            fill="url(#heart)"/>
+
+      <path d="M90 120 C90 70 140 40 190 60
+               C240 40 290 70 290 120
+               C290 180 240 210 190 210
+               C140 210 90 180 90 120Z"
+            fill="url(#fur)"/>
+
+      <circle cx="160" cy="130" r="8"/>
+      <circle cx="220" cy="130" r="8"/>
+
+      <path d="M190 144 C186 144 182 148 182 152
+               C182 160 190 164 190 170
+               C190 164 198 160 198 152
+               C198 148 194 144 190 144Z"
+            fill="#ff9bd4"/>
+    </svg>
+
+    <h1>Luchy 💜</h1>
+    <div class="subtitle">Will you be my Valentine?</div>
+
+    <section class="button-zone" id="zone">
+      <button id="yesBtn">Yes 💖</button>
+      <button id="noBtn">No 🙈</button>
+    </section>
+
+    <div class="hint" id="hint">The “No” button is feeling shy today 😈</div>
+
+    <section class="result" id="result">
+      <h2>It’s a YES! 💜✨</h2>
+      <p> Thank you for choosing home Tes,<br>
+    There’s gonna be warmth, fun and lots of laughter!</p>
+      <img
+        class="fireworks"
+        src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif"
+        alt="Fireworks"
+      />
+    </section>
+  </main>
+
+  <script>
+    const zone = document.getElementById("zone");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const result = document.getElementById("result");
+    const hint = document.getElementById("hint");
+    const confettiCanvas = document.getElementById("confettiCanvas");
+
+    function resizeConfettiCanvas() {
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      confettiCanvas.width = innerWidth * dpr;
+      confettiCanvas.height = innerHeight * dpr;
+    }
+
+    resizeConfettiCanvas();
+    window.addEventListener("resize", resizeConfettiCanvas);
+
+    const confettiInstance = confetti.create(confettiCanvas, {
+      resize: false,
+      useWorker: true
+    });
+
+    function fullScreenConfetti() {
+      const end = Date.now() + 1800;
+      (function frame() {
+        confettiInstance({
+          particleCount: 14,
+          spread: 120,
+          startVelocity: 50,
+          origin: { x: Math.random(), y: Math.random() * 0.3 },
+          colors: ["#b48cff", "#ff7abf", "#ffffff"]
+        });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+    }
+
+    let yesScale = 1;
+    function growYes() {
+      yesScale = Math.min(2.4, yesScale + 0.12);
+      yesBtn.style.transform = `translateY(-50%) scale(${yesScale})`;
+    }
+
+    function clamp(n, min, max) {
+      return Math.max(min, Math.min(max, n));
+    }
+
+    function moveNo(px, py) {
+      const z = zone.getBoundingClientRect();
+      const b = noBtn.getBoundingClientRect();
+
+      let dx = (b.left + b.width / 2) - px;
+      let dy = (b.top + b.height / 2) - py;
+      let mag = Math.hypot(dx, dy) || 1;
+      dx /= mag; dy /= mag;
+
+      let newLeft = (b.left - z.left) + dx * 160;
+      let newTop  = (b.top - z.top) + dy * 160;
+
+      newLeft = clamp(newLeft, 0, z.width - b.width);
+      newTop  = clamp(newTop, 0, z.height - b.height);
+
+      noBtn.style.left = newLeft + "px";
+      noBtn.style.top = newTop + "px";
+      noBtn.style.transform = "none";
+
+      growYes();
+    }
+
+    zone.addEventListener("pointermove", e => {
+      const b = noBtn.getBoundingClientRect();
+      const d = Math.hypot(
+        (b.left + b.width / 2) - e.clientX,
+        (b.top + b.height / 2) - e.clientY
+      );
+      if (d < 150) moveNo(e.clientX, e.clientY);
+    });
+
+    yesBtn.addEventListener("click", () => {
+      zone.style.display = "none";
+      hint.style.display = "none";
+      result.style.display = "block";
+      resizeConfettiCanvas();
+      fullScreenConfetti();
+    });
+
+const music = document.getElementById("bgMusic");
+const heartBtn = document.getElementById("heartBtn");
+
+/* START MUSIC ON YES */
+yesBtn.addEventListener("click", () => {
+  music.volume = 0.6;
+  music.play().catch(() => {});
+});
+
+/* FLOATING HEARTS */
+heartBtn.addEventListener("click", () => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.textContent = Math.random() > 0.5 ? "💜" : "💖";
+
+  heart.style.right = (30 + Math.random() * 40) + "px";
+  heart.style.fontSize = (20 + Math.random() * 16) + "px";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 2500);
+});
+
+  </script>
+</body>
+</html>
