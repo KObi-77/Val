@@ -204,7 +204,7 @@
 <body>
 
 <audio id="bgMusic" preload="auto">
-  <source src="https://KObi-77.github.io/Val/Luchy.m4a" type="audio/m4a">
+  <source src="https://KObi-77.github.io/Val/Luchy.m4a" type="audio/mpeg">
 </audio>
 
 <button id="heartBtn">💜</button>
@@ -236,15 +236,19 @@
   to { transform: scale(1.2); opacity: 1; }
 }
     <h2>It’s a YES! 💜✨</h2>
-    <p>
-      Oh My !!! <br>
-      I Love you Tes 💜. <br>
+    <p>Oh My !!! <br>
+      I Love you Tes 💜 <br>
       Thank you for choosing home <br>
-      It is going to be warm, fun, and filled of laughter!
-    </p>
+      It is going to be warm, fun, and filled of laughter!</p>
     <img class="fireworks"
          src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDZrOXZ5OGM3ZmtnZTJxbm4xNXNseXR3cnA0YXVwamxyN3MycHkzbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5VKbvrjxpVJCM/giphy.gif"
          alt="Fireworks">
+    yesBtn.addEventListener("click", () => {
+  music.volume = 0.6;
+  music.load();
+  music.play().catch(err => console.log("Audio error:", err));
+});
+
   </section>
 </main>
 
